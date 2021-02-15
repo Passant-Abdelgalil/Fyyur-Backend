@@ -1,0 +1,51 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Edit Artist{% endblock %}
+{% block content %}
+  <div class="form-wrapper">
+    <form class="form" method="post" action="/artists/{{artist.id}}/edit">
+      <h3 class="form-heading">Edit artist <em>{{ artist.name }}</em></h3>
+      <div class="form-group">
+        <label for="name">Name</label>
+        {{ form.name(class_ = 'form-control', autofocus = true, value = artist.name) }}
+      </div>
+      <div class="form-group">
+          <label>City & State</label>
+          <div class="form-inline">
+            <div class="form-group">
+              {{ form.city(class_ = 'form-control', placeholder='City', autofocus = true, value = artist.city) }}
+            </div>
+            <div class="form-group">
+              {{ form.state(class_ = 'form-control', placeholder='State', autofocus = true, value = artist.state) }}
+            </div>
+          </div>
+      </div>
+      <div class="form-group">
+          <label for="phone">Phone</label>
+          {{ form.phone(class_ = 'form-control', placeholder='xxx-xxx-xxxx', autofocus = true, value = artist.phone, pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}") }}
+        </div>
+      <div class="form-group">
+        <label for="genres">Genres</label>
+        <small>Ctrl+Click to select multiple</small>
+        {{ form.genres(class_ = 'form-control', placeholder='Genres, separated by commas', autofocus = True) }}
+      </div>
+      <div class="form-group">
+          <label for="facebook_link">Facebook Link</label>
+          {{ form.facebook_link(class_ = 'form-control', placeholder='http://', autofocus = true, value = artist.facebook_link) }}
+        </div>
+        <div class="form-group">
+          <label for="website">Website</label>
+          {{ form.website(class_ = 'form-control', placeholder='http://', autofocus = true, value = artist.website) }}
+        </div>
+        <div class="form-group">
+          <label for="seekingVenue">Seeking Venue ?</label>
+          {{ form.seekingVenue(class_ = 'form-control', placeholder='True', autofocus = true, value = artist.seeking_venue) }}
+        </div>
+        <div class="form-group">
+          <label for="seekingDescrip">Seeking Description</label>
+          {{ form.seekingDescrip(class_ = 'form-control', placeholder='Write here', autofocus = true, value = artist.seeking_description) }}
+        </div>
+      <input type="submit" value="Edit Artist" class="btn btn-primary btn-lg btn-block">
+    </form>
+  </div>
+
+{% endblock %}
