@@ -54,7 +54,7 @@
 			<div class="tile tile-show">
 				<img src="{{ show.venue_image_link }}" alt="Show Venue Image" />
 				<h5><a href="/venues/{{ show.venue_id }}">{{ show.venue_name }}</a></h5>
-				<h6>{{ show.start_time|datetime('full') }}</h6>
+				<h6>{{ show.start_date|datetime('full') }}</h6>
 			</div>
 		</div>
 		{% endfor %}
@@ -68,21 +68,11 @@
 			<div class="tile tile-show">
 				<img src="{{ show.venue_image_link }}" alt="Show Venue Image" />
 				<h5><a href="/venues/{{ show.venue_id }}">{{ show.venue_name }}</a></h5>
-				<h6>{{ show.start_time|datetime('full') }}</h6>
+				<h6>{{ show.start_date|datetime('full') }}</h6>
 			</div>
 		</div>
 		{% endfor %}
 	</div>
 </section>
-<script>
-
-	const editedVenues = document.querySelector(".edited")
-	editedVenues.onclick = function(e){
-			console.log(e);
-	fetch('/artists/'+e.target.dataset['id']+'/edit', {method: 'GET'})
-	.then()
-	.catch()
-	}
-  </script>
 {% endblock %}
 

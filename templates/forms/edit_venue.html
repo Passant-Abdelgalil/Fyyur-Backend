@@ -1,8 +1,14 @@
 {% extends 'layouts/main.html' %}
 {% block title %}Edit Venue{% endblock %}
 {% block content %}
+
+<div class="row">
+
+<div class="col-sm-6">
+
   <div class="form-wrapper">
     <form class="form" method="post" action="/venues/{{venue.id}}/edit">
+      {{form.hidden_tag()}}
       <h3 class="form-heading">Edit venue <em>{{ venue.name }}</em> <a href="{{ url_for('index') }}" title="Back to homepage"><i class="fa fa-home pull-right"></i></a></h3>
       <div class="form-group">
         <label for="name">Name</label>
@@ -41,14 +47,32 @@
         {{ form.website(class_ = 'form-control', placeholder='http://', autofocus = true, value = venue.website) }}
       </div>
       <div class="form-group">
-        <label for="seekingVenue">Seeking Venue ?</label>
-        {{ form.seekingVenue(class_ = 'form-control', placeholder='True', autofocus = true, value = venue.seeking_venue) }}
+        <label for="seeking_talent" style="float: left;padding-right: 10px;">Seeking Talent ?</label>
+        {{ form.seeking_talent(class_ = 'form-control', autofocus = true) }}
       </div>
       <div class="form-group">
-        <label for="seekingDescrip">Seeking Description</label>
-        {{ form.seekingDescrip(class_ = 'form-control', placeholder='Write here', autofocus = true, value = venue.seeking_description) }}
+        <label for="seeking_description">Seeking Description</label>
+        {{ form.seeking_description(class_ = 'form-control', placeholder='Write here', autofocus = true, value = venue.seeking_description) }}
       </div>
+
+        <img class = "photo" src="{{ venue.image_link }}" alt="Venue Image" />
+        <div style="height: 20px;"></div>
+        <div class="form-group">
+          <label for="image_link">Image</label>
+          <small>Please Input a valid link to the Image</small>
+          {{ form.image_link(class_ = 'form-control', placeholder='http://', autofocus = true, value = venue.image_link) }}
+        </div>
       <input type="submit" value="Edit Venue" class="btn btn-primary btn-lg btn-block">
     </form>
   </div>
+</div>
+
+</div>
+<script>
+  const imageLink = document.getElementById("image_link")
+  imageLink.onchange= function(){
+  document.querySelector(".photo").src = imageLink.value;
+  // console.log(document.querySelector(".photo").src);
+  }
+</script>
 {% endblock %}

@@ -2,7 +2,12 @@
 <head>
 <meta charset="utf-8">
 <title>{% block title %}{% endblock %}</title>
-
+<style>
+            
+  .hidden {
+      display: none;
+  }
+</style>
 <!-- meta -->
 <meta name="description" content="">
 <meta name="author" content="">
@@ -118,6 +123,14 @@
   <script>window.jQuery || document.write('<script type="text/javascript" src="/static/js/libs/jquery-1.11.1.min.js"><\/script>')</script>
   <script type="text/javascript" src="/static/js/libs/bootstrap-3.1.1.min.js" defer></script>
   <script type="text/javascript" src="/static/js/plugins.js" defer></script>
-  
+  <script>
+    const imageLink = document.getElementById("image_link")
+    if(imageLink){
+      imageLink.onchange= function(){
+      document.querySelector(".photo").src = imageLink.value;
+      // console.log(document.querySelector(".photo").src);
+      }
+  }
+  </script>
 </body>
 </html>

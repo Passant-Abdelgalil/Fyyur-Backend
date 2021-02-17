@@ -1,10 +1,12 @@
 {% extends 'layouts/main.html' %}
 {% block title %}Venue Search{% endblock %}
 {% block content %}
+
 <div class="row">
+	<div id="error" class="hidden" >Please Refresh The Page!</div>
 	<div class="col-sm-6">
-		<button class = "deleted" data-id="{{ venue.id }}" style="float:right;background: none;border: none; color: red; padding: 12px 16px; font-size: 16px; cursor: pointer;" data-id="{{venue.id}}"><i class="fas fa-trash"></i></button>
-		<button class = "edited" data-id="{{ venue.id }}" style="float:right;background: none;border: none; color: rgb(255, 115, 0); padding: 12px 16px; font-size: 16px; cursor: pointer;" data-id="{{venue.id}}"><i class="fas fa-edit"></i></button>
+		<button class = "deleted" data-id="{{ venue.id }}" style="float:right;background: none;border: none; color: red; padding: 12px 16px; font-size: 16px; cursor: pointer;" data-id="{{venue.id}}"><i class="fas fa-trash" data-id="{{venue.id}}"></i></button>
+		<a id = 'edit-btn' href = '/venues/{{venue.id}}/edit' style="float:right; color: rgb(255, 115, 0); padding: 12px 16px; font-size: 16px; cursor: pointer;"><i class="fas fa-edit"></i></a>
 
 		<h1 class="monospace" style="display: inline-block;">
 			{{ venue.name }}
@@ -58,7 +60,7 @@
 			<div class="tile tile-show">
 				<img src="{{ show.artist_image_link }}" alt="Show Artist Image" />
 				<h5><a href="/artists/{{ show.artist_id }}">{{ show.artist_name }}</a></h5>
-				<h6>{{ show.start_time|datetime('full') }}</h6>
+				<h6>{{ show.start_date|datetime('full') }}</h6>
 			</div>
 		</div>
 		{% endfor %}
@@ -72,7 +74,7 @@
 			<div class="tile tile-show">
 				<img src="{{ show.artist_image_link }}" alt="Show Artist Image" />
 				<h5><a href="/artists/{{ show.artist_id }}">{{ show.artist_name }}</a></h5>
-				<h6>{{ show.start_time|datetime('full') }}</h6>
+				<h6>{{ show.start_date|datetime('full') }}</h6>
 			</div>
 		</div>
 		{% endfor %}
@@ -81,14 +83,23 @@
 <script>
 	const deleteVenues = document.querySelector(".deleted")
 	deleteVenues.onclick = function(e){
-			console.log(e);
-	fetch('/venues/'+e.target.dataset['id'], {method: 'DELETE'});
+	var ID = e.target.dataset['id']
+	if (! ID ){
+		const deleteVenue = document.querySelector(".fa-trash")
+		ID = deleteVenue.getAttribute('data-id');
+		console.log(deleteVenue)
 	}
-	const editedVenues = document.querySelector(".edited")
-	editedVenues.onclick = function(e){
-			console.log(e);
-	fetch('/venues/'+e.target.dataset['id']+'/edit', {method: 'GET'});
+	fetch('/venues/'+ID, {method: 'DELETE'})
+	.then(function(){
+        document.getElementById('error').className = '';
+		console.log(document.getElementById('error').className);
+    })
+	.catch(function(){
+		document.getElementById('error').className = 'hidden';
+	});
 	}
+	
+
   </script>
 {% endblock %}
 
